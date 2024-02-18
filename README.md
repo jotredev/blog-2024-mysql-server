@@ -1,6 +1,6 @@
 # INSTRUCCIONES PARA EL SERVIDOR EN LOCAL
 
-1. Agregar el archivo .env
+1. Crear el archivo .env
 2. Crear o importar base de datos en local mysql
 3. Crear las variables de entorno necesarias
 

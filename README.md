@@ -12,4 +12,7 @@
     MYSQL_USER=
     MYSQL_PASSWORD=
     MYSQL_HOST=
+
+    # JWT
+    JWT_SECRET=
 ```

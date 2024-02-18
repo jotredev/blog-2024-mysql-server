@@ -23,3 +23,24 @@ export const validatorCreateUser = [
     }
   },
 ];
+
+export const validatorLogin = [
+  check("email")
+    .exists()
+    .isEmail()
+    .withMessage("El email no es válido")
+    .notEmpty()
+    .withMessage("El email es obligatorio"),
+  check("password")
+    .exists()
+    .notEmpty()
+    .withMessage("El password es obligatorio"),
+  (req, res, next) => {
+    try {
+      validationResult(req).throw();
+      return next();
+    } catch (error) {
+      res.status(403).json({ errors: error.array() });
+    }
+  },
+];

@@ -16,3 +16,15 @@
     # JWT
     JWT_SECRET=
 ```
+
+4. Instalar dependencias
+
+```
+npm install
+```
+
+5. Iniciar el servidor en localhost
+
+```
+npm run dev
+```

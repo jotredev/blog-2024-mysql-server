@@ -4,10 +4,13 @@ import dotenv from "dotenv";
 
 // Rutas
 import userRoutes from "./routes/v1/user.routes.js";
+import postRoutes from "./routes/v1/post.routes.js";
 
 // Database
+// Debemos importar los modelos para sincronize la base de datos o cree las tablas faltantes
 import { sequelize } from "./db/config.js";
 import "./models/user.model.js";
+import "./models/post.model.js";
 
 // Inicializamos express
 const app = express();
@@ -37,6 +40,7 @@ app.use(cors());
 
 // Routing
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/posts", postRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto: ${PORT}`);

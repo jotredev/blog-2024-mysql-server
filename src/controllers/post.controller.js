@@ -43,3 +43,30 @@ export const getPosts = async (req, res) => {
     res.status(500).json({ response: "error", msg: "Error del servidor" });
   }
 };
+
+// Obtener post por id
+export const getPostById = async (req, res) => {
+  const { id } = req.params;
+
+  // Get post
+  const post = await Post.findOne({
+    where: { id },
+    attributes: { exclude: ["author"] },
+    include: [{ model: User, attributes: ["id", "name", "email"] }],
+  });
+
+  if (!post) {
+    return res.status(404).json({
+      response: "error",
+      msg: "Post no encontrado",
+    });
+  }
+
+  try {
+    // Respuesta
+    res.status(201).json({ response: "success", post });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ response: "error", msg: "Error del servidor" });
+  }
+};

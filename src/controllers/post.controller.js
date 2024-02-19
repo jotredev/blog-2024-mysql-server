@@ -1,14 +1,16 @@
 import Post from "../models/post.model.js";
+import User from "../models/user.model.js";
 
 // Crear nuevo post
 export const createPost = async (req, res) => {
   const { auth } = req;
-  const { title, content } = req.body;
+  const { title, shortDescription, content } = req.body;
 
   try {
     // Creamos el post
     const post = new Post({
       title,
+      shortDescription,
       content,
       author: auth.id,
     });
@@ -18,6 +20,24 @@ export const createPost = async (req, res) => {
 
     // Respuesta
     res.status(201).json({ response: "success", post: savedPost });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ response: "error", msg: "Error del servidor" });
+  }
+};
+
+// Obtener todos los posts
+export const getPosts = async (req, res) => {
+  try {
+    // Obtener todos los post con los autores
+    const posts = await Post.findAll({
+      attributes: { exclude: ["author"] },
+      include: [{ model: User, attributes: ["id", "name", "email"] }],
+      order: [["createdAt", "DESC"]],
+    });
+
+    // Respuesta
+    res.status(201).json({ response: "success", posts });
   } catch (error) {
     console.log(error);
     res.status(500).json({ response: "error", msg: "Error del servidor" });
